@@ -212,13 +212,153 @@ def build_relations(technique_json: dict, resolvers: dict, unresolved: dict) -> 
     return as_related(relations)
 
 
-def main() -> None:
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Convert MITRE D3FEND to a MISP galaxy.')
     parser.add_argument('-c', '--cache-dir', default=default_cache_dir,
                         help='directory to cache the API responses in (per ontology version)')
     parser.add_argument('--no-cache', action='store_true', help='always fetch from the API')
     parser.add_argument('-j', '--jobs', type=int, default=4, help='parallel requests')
-    args = parser.parse_args()
+    return parser.parse_args()
+
+
+def load_resolvers() -> tuple[dict, set]:
+    """external_id -> uuid per offensive cluster, and the uuids those clusters revoked."""
+    resolvers = {}
+    revoked_targets = set()
+    for name in sorted(set(framework_clusters.values())):
+        resolvers[name], revoked = external_id_to_uuid(name)
+        revoked_targets |= revoked
+    return resolvers, revoked_targets
+
+
+def build_value(d3fend_id: str, technique: dict, synonyms: list, technique_json: dict,
+                resolvers: dict, unresolved: dict) -> dict:
+    """One cluster value, out of a technique and the mappings the API returned for it."""
+    value = {
+        'value': f"{technique['value']} - {d3fend_id}",
+        'description': technique['description'],
+        'uuid': str(uuid.uuid5(uuid.UUID(uuid_seed), d3fend_id)),
+        'meta': {
+            'external_id': d3fend_id,
+            'kill_chain': [technique['kill_chain']],
+            'refs': [f"{TECHNIQUE_URL}/{technique['iri']}"],
+        },
+    }
+    if synonyms:
+        value['meta']['synonyms'] = sorted(synonyms)
+    relations = build_relations(technique_json, resolvers, unresolved)
+    if relations:
+        value['related'] = relations
+    return value
+
+
+def build_values(techniques: dict, synonyms_of: dict, resolvers: dict, unresolved: dict,
+                 cache_dir: str, jobs: int) -> list:
+    """Fetch every technique - the API serves one at a time - and convert them."""
+    def get_technique(d3fend_id: str) -> tuple:
+        return d3fend_id, fetch(f"technique/{techniques[d3fend_id]['iri']}.json", cache_dir)
+
+    with ThreadPoolExecutor(max_workers=jobs) as executor:
+        return [build_value(d3fend_id, techniques[d3fend_id], synonyms_of.get(d3fend_id, []),
+                            technique_json, resolvers, unresolved)
+                for d3fend_id, technique_json in executor.map(get_technique, sorted(techniques))]
+
+
+def carry_over_synonyms(new_values: dict, previous_values: dict) -> None:
+    """Keep the old label of a technique renamed under a stable id searchable.
+
+    The synonyms already recorded have to be carried over as well: they are
+    rebuilt from upstream on every run, so a label kept here would be dropped
+    again by the very next regeneration.
+    """
+    for external_id, value in new_values.items():
+        previous = previous_values.get(external_id)
+        if not previous:
+            continue
+        synonyms = set(value['meta'].get('synonyms', [])) | set(previous['meta'].get('synonyms', []))
+        if label_of(previous) != label_of(value):
+            # Only an upstream rename earns a synonym: moving every value to the
+            # "<name> - <id>" convention is a migration, not 241 renames.
+            print(f"Renamed: {label_of(previous)} -> {label_of(value)}")
+            synonyms.add(previous['value'])
+        if synonyms:
+            value['meta']['synonyms'] = sorted(synonyms)
+
+
+def link_successor(previous: dict, candidates: dict) -> None:
+    """Point a revoked technique at the one that replaced it, where that is clear enough."""
+    linked = {key for key in relation_keys(previous) if key[1] == 'revoked-by'}
+    if linked:
+        previous['related'] = as_related(linked)   # a successor set on an earlier run
+        return
+    ratio, successor_id = find_successor(previous, candidates)
+    if ratio >= successor_link_ratio:
+        successor = candidates[successor_id]
+        print(f"    renamed upstream to {successor['value']} "
+              f"(mapping overlap {ratio:.2f}), linking with revoked-by")
+        previous['related'] = [{'dest-uuid': successor['uuid'], 'type': 'revoked-by'}]
+        return
+    if ratio >= successor_hint_ratio:
+        print(f"WARNING: {previous['meta']['external_id']} may have been renamed to "
+              f"{candidates[successor_id]['value']} "
+              f"(mapping overlap {ratio:.2f}); add revoked-by by hand if it was")
+    if previous.get('related'):
+        previous['related'] = as_related(relation_keys(previous))
+
+
+def drop_stale_kill_chain(value: dict, valid_kill_chains: set) -> None:
+    """Drop phases the galaxy no longer declares - File-Eviction became Object-Eviction."""
+    kill_chain = value['meta'].get('kill_chain', [])
+    stale = [kc for kc in kill_chain if kc not in valid_kill_chains]
+    if not stale:
+        return
+    print(f"    dropping kill_chain no longer in the galaxy: {', '.join(stale)}")
+    remaining = [kc for kc in kill_chain if kc in valid_kill_chains]
+    if remaining:
+        value['meta']['kill_chain'] = remaining
+    else:
+        del value['meta']['kill_chain']
+
+
+def revoke_missing(previous_values: dict, new_values: dict, kill_chain_order: dict) -> list:
+    """Revoke - never delete - the techniques that disappeared upstream.
+
+    Deleting them would orphan the tags of existing MISP events. A rename that
+    moved the id lands here too, which is what link_successor is for.
+    """
+    valid_kill_chains = {f"{tactic}:{phase}"
+                         for tactic, phases in kill_chain_order.items() for phase in phases}
+    candidates = {external_id: value for external_id, value in new_values.items()
+                  if external_id not in previous_values}
+    revoked = []
+    for external_id, previous in previous_values.items():
+        if external_id in new_values:
+            continue
+        print(f"Revoked: {label_of(previous)} - {external_id}")
+        previous['value'] = f"{label_of(previous)} - {external_id}"
+        previous['revoked'] = True
+        link_successor(previous, candidates)
+        drop_stale_kill_chain(previous, valid_kill_chains)
+        revoked.append(previous)
+    return revoked
+
+
+def report(cluster: dict, revoked_count: int, unresolved: dict, revoked_targets: set) -> None:
+    relations_count = sum(len(value.get('related', [])) for value in cluster['values'])
+    print(f"\n{len(cluster['values'])} values ({revoked_count} revoked), "
+          f"{relations_count} relations")
+    for framework, ids in sorted(unresolved.items()):
+        print(f"WARNING: {len(ids)} unresolved {framework} technique(s): {', '.join(sorted(ids))}")
+    stale_targets = sum(1 for value in cluster['values'] for rel in value.get('related', [])
+                        if rel['dest-uuid'] in revoked_targets)
+    if stale_targets:
+        print(f"WARNING: {stale_targets} relation(s) point at a value the target cluster has "
+              f"revoked; D3FEND still maps to them, so they are kept - check if that diverges")
+    print("All done, please don't forget to ./jq_all_the_things.sh, commit, and then ./validate_all.sh.")
+
+
+def main() -> None:
+    args = parse_args()
 
     version_json = fetch('version.json')
     ontology_version = version_json['ontology_version']
@@ -233,105 +373,18 @@ def main() -> None:
     print(f"{len(techniques)} techniques in "
           f"{sum(len(phases) for phases in kill_chain_order.values())} phases")
 
-    resolvers = {}
-    revoked_targets = set()
-    for name in sorted(set(framework_clusters.values())):
-        resolvers[name], revoked = external_id_to_uuid(name)
-        revoked_targets |= revoked
+    resolvers, revoked_targets = load_resolvers()
     unresolved = defaultdict(set)
-
-    def get_technique(d3fend_id: str) -> tuple:
-        return d3fend_id, fetch(f"technique/{techniques[d3fend_id]['iri']}.json", cache_dir)
-
-    values = []
-    with ThreadPoolExecutor(max_workers=args.jobs) as executor:
-        for d3fend_id, technique_json in executor.map(get_technique, sorted(techniques)):
-            technique = techniques[d3fend_id]
-            value = {
-                'value': f"{technique['value']} - {d3fend_id}",
-                'description': technique['description'],
-                'uuid': str(uuid.uuid5(uuid.UUID(uuid_seed), d3fend_id)),
-                'meta': {
-                    'external_id': d3fend_id,
-                    'kill_chain': [technique['kill_chain']],
-                    'refs': [f"{TECHNIQUE_URL}/{technique['iri']}"],
-                },
-            }
-            synonyms = synonyms_of.get(d3fend_id, [])
-            if synonyms:
-                value['meta']['synonyms'] = sorted(synonyms)
-            relations = build_relations(technique_json, resolvers, unresolved)
-            if relations:
-                value['related'] = relations
-            values.append(value)
+    values = build_values(techniques, synonyms_of, resolvers, unresolved, cache_dir, args.jobs)
+    new_values = {value['meta']['external_id']: value for value in values}
 
     cluster = load_json('clusters', galaxy_fname)
     previous_values = {value['meta']['external_id']: value
                        for value in cluster['values'] if value.get('meta', {}).get('external_id')}
-    new_values = {value['meta']['external_id']: value for value in values}
+    carry_over_synonyms(new_values, previous_values)
+    revoked = revoke_missing(previous_values, new_values, kill_chain_order)
 
-    # A technique renamed under the same id (D3-CR: Credential Revoking ->
-    # Credential Revocation) keeps its old label as a synonym, so the old tag
-    # stays searchable. The synonyms already recorded have to be carried over as
-    # well: they are rebuilt from upstream on every run, so a label kept here
-    # would be dropped again by the very next regeneration.
-    for external_id, value in new_values.items():
-        previous = previous_values.get(external_id)
-        if not previous:
-            continue
-        synonyms = set(value['meta'].get('synonyms', [])) | set(previous['meta'].get('synonyms', []))
-        if label_of(previous) != label_of(value):
-            # Only an upstream rename earns a synonym: renaming every value to the
-            # "<name> - <id>" convention is a migration, not 241 renames.
-            print(f"Renamed: {label_of(previous)} -> {label_of(value)}")
-            synonyms.add(previous['value'])
-        if synonyms:
-            value['meta']['synonyms'] = sorted(synonyms)
-
-    # Techniques that disappeared upstream are revoked, never deleted: removing
-    # them would orphan the tags of existing MISP events. A rename that moved the
-    # id lands here too (see successor_link_ratio), so point the revoked value at
-    # its successor whenever the mappings make that clear enough.
-    valid_kill_chains = {f"{tactic}:{phase}"
-                         for tactic, phases in kill_chain_order.items() for phase in phases}
-    candidates = {external_id: value for external_id, value in new_values.items()
-                  if external_id not in previous_values}
-    for external_id, previous in previous_values.items():
-        if external_id in techniques:
-            continue
-        print(f"Revoked: {label_of(previous)} - {external_id}")
-        previous['value'] = f"{label_of(previous)} - {external_id}"
-        previous['revoked'] = True
-        linked = {key for key in relation_keys(previous) if key[1] == 'revoked-by'}
-        if linked:
-            previous['related'] = as_related(linked)   # keep a successor set on an earlier run
-        else:
-            ratio, successor_id = find_successor(previous, candidates)
-            if ratio >= successor_link_ratio:
-                successor = candidates[successor_id]
-                print(f"    renamed upstream to {successor['value']} "
-                      f"(mapping overlap {ratio:.2f}), linking with revoked-by")
-                previous['related'] = [{'dest-uuid': successor['uuid'], 'type': 'revoked-by'}]
-            else:
-                if ratio >= successor_hint_ratio:
-                    print(f"WARNING: {external_id} may have been renamed to "
-                          f"{candidates[successor_id]['value']} "
-                          f"(mapping overlap {ratio:.2f}); add revoked-by by hand if it was")
-                if previous.get('related'):
-                    previous['related'] = as_related(relation_keys(previous))
-        # The phase can be gone as well - File-Eviction became Object-Eviction in
-        # 1.6.0 - and a kill_chain the galaxy no longer declares is worse than none.
-        stale = [kc for kc in previous['meta'].get('kill_chain', []) if kc not in valid_kill_chains]
-        if stale:
-            print(f"    dropping kill_chain no longer in the galaxy: {', '.join(stale)}")
-            remaining = [kc for kc in previous['meta']['kill_chain'] if kc in valid_kill_chains]
-            if remaining:
-                previous['meta']['kill_chain'] = remaining
-            else:
-                del previous['meta']['kill_chain']
-        values.append(previous)
-
-    cluster['values'] = sorted(values, key=lambda value: value['meta']['external_id'])
+    cluster['values'] = sorted(values + revoked, key=lambda value: value['meta']['external_id'])
     cluster['version'] += 1
     save_json(cluster, 'clusters', galaxy_fname)
 
@@ -340,17 +393,7 @@ def main() -> None:
     galaxy['version'] += 1
     save_json(galaxy, 'galaxies', galaxy_fname)
 
-    relations_count = sum(len(value.get('related', [])) for value in cluster['values'])
-    print(f"\n{len(cluster['values'])} values ({len(values) - len(techniques)} revoked), "
-          f"{relations_count} relations")
-    for framework, ids in sorted(unresolved.items()):
-        print(f"WARNING: {len(ids)} unresolved {framework} technique(s): {', '.join(sorted(ids))}")
-    stale_targets = sum(1 for value in cluster['values'] for rel in value.get('related', [])
-                        if rel['dest-uuid'] in revoked_targets)
-    if stale_targets:
-        print(f"WARNING: {stale_targets} relation(s) point at a value the target cluster has "
-              f"revoked; D3FEND still maps to them, so they are kept - check if that diverges")
-    print("All done, please don't forget to ./jq_all_the_things.sh, commit, and then ./validate_all.sh.")
+    report(cluster, len(revoked), unresolved, revoked_targets)
 
 
 if __name__ == '__main__':
