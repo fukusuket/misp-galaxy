@@ -150,24 +150,30 @@ def find_successor(previous: dict, candidates: dict) -> tuple[float, str]:
 def walk_matrix(matrix: list) -> tuple[dict, dict]:
     """Flatten api/matrix.json into techniques and the tactic/phase ordering.
 
-    The tree is tactic (depth 0) -> phase (depth 1) -> technique (depth 2+),
-    which replaces the recursive subClassOf lookups of the previous version.
+    The tree is tactic (depth 0) -> technique (depth 1) -> sub-technique (depth 2+),
+    replacing the recursive subClassOf lookups of the previous version. Only the
+    tactic is a grouping: a depth 1 node is a top-level technique in its own right
+    - d3f:ObjectEviction is subClassOf d3f:DefensiveTechnique, exactly like the
+    sub-techniques under it, and carries its own id, definition and mappings - so
+    it becomes a cluster value and names the kill chain phase of its subtree.
     """
     techniques = {}          # d3fend-id -> {value, description, iri, kill_chain}
     kill_chain_order = {}    # tactic -> [phases]
 
     def walk(node, tactic, phase, depth):
-        if depth >= 2 and 'd3f:d3fend-id' in node:
+        if depth == 1:
+            phase = node['rdfs:label']
+        if depth >= 1 and 'd3f:d3fend-id' in node:
             techniques[node['d3f:d3fend-id']] = {
                 'value': node['rdfs:label'],
                 'description': node['d3f:definition'],
                 'iri': node['@id'],
                 'kill_chain': f"{tactic}:{phase.replace(' ', '-')}",
             }
-        elif depth >= 2:
+        elif depth >= 1:
             print(f"WARNING: no d3fend-id, skipping {node['@id']}")
         for child in node.get('children', []):
-            walk(child, tactic, node['rdfs:label'] if depth == 1 else phase, depth + 1)
+            walk(child, tactic, phase, depth + 1)
 
     for tactic_node in matrix:
         tactic = tactic_node['rdfs:label']

@@ -10,6 +10,98 @@
   "uuid": "b8bd7e45-63bf-4c44-8ab1-c81c82547380",
   "values": [
     {
+      "description": "Agent authentication is the process of verifying the identities of agents to ensure they are authorized and trustworthy participants within a system.",
+      "meta": {
+        "external_id": "D3-AA",
+        "kill_chain": [
+          "Harden:Agent-Authentication"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:AgentAuthentication"
+        ]
+      },
+      "related": [
+        {
+          "dest-uuid": "21875073-b0ee-49e3-9077-1e2a885359af",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "25659dd6-ea12-45c4-97e6-381e3e4b593e",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "2dbbdcd5-92cf-44c0-aea2-fe24783a6bc3",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "6151cbea-819b-455a-9fa6-99a1cc58797d",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "635cbe30-392d-4e27-978e-66774357c762",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "6fa224c7-5091-4595-bf15-3fc9fe2f2c7c",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "7610cada-1499-41a4-b3dd-46467b68d177",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "8bb4538f-f16f-49f0-a431-70b5444c7349",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "8f104855-e5b7-4077-b1f5-bc3103b41abe",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "a009cb25-4801-4116-9105-80a91cf15c1b",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "a10641f4-87b4-45a3-a906-92a149cb2c27",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "b17a1a56-e99c-403c-8948-561df0cffe81",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "b24e2a20-3b3d-4bf0-823b-1ed765398fb0",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "c3d4bdd9-2cfe-4a80-9d0c-07a29ecdce8f",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "cd2c76a4-5e23-4ca5-9c40-d5e0604f7101",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "e01be9c5-e763-4caf-aeb7-000b416aef67",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "e74de37c-a829-446c-937d-56a44f0e9306",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "f232fa7a-025c-4d43-abc7-318e81a73d65",
+          "type": "strengthens"
+        },
+        {
+          "dest-uuid": "fdc47f44-dd32-4b99-af5f-209f556f63c2",
+          "type": "strengthens"
+        }
+      ],
+      "uuid": "9d4ab4bf-dbcf-5dc9-a432-f67088495abe",
+      "value": "Agent Authentication - D3-AA"
+    },
+    {
       "description": "Application code which prevents its own subroutines from accessing intra-process / internal memory space.",
       "meta": {
         "external_id": "D3-ABPI",
@@ -276,6 +368,41 @@
       "value": "Application Exception Monitoring - D3-AEM"
     },
     {
+      "description": "Application Hardening makes an executable application more resilient to a class of exploits which either introduce new code or execute unwanted existing code. These techniques may be applied at compile-time or on an application binary.",
+      "meta": {
+        "external_id": "D3-AH",
+        "kill_chain": [
+          "Harden:Application-Hardening"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:ApplicationHardening"
+        ],
+        "synonyms": [
+          "Process Hardening"
+        ]
+      },
+      "uuid": "08f5bb0c-9ded-530d-9cde-46dda12b2ebb",
+      "value": "Application Hardening - D3-AH"
+    },
+    {
+      "description": "Asset inventorying identifies and records the organization's assets and enriches each inventory item with knowledge about their vulnerabilities.",
+      "meta": {
+        "external_id": "D3-AI",
+        "kill_chain": [
+          "Model:Asset-Inventory"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:AssetInventory"
+        ],
+        "synonyms": [
+          "Asset Discovery",
+          "Asset Inventorying"
+        ]
+      },
+      "uuid": "bc7b5365-e822-58d0-aba0-814df983f7c2",
+      "value": "Asset Inventory - D3-AI"
+    },
+    {
       "description": "The process of temporarily disabling user accounts on a system or domain.",
       "meta": {
         "external_id": "D3-AL",
@@ -506,6 +633,23 @@
       "value": "Access Modeling - D3-AM"
     },
     {
+      "description": "Access mediation is the process of granting or denying specific requests to: 1) obtain and use information and related information processing services; and 2) enter specific physical facilities (e.g., Federal buildings, military establishments, border crossing entrances). Access mediation decisions should enforce least privilege by granting access for scoped durations to prevent privilege creep and, where applicable, implement just-in-time (JIT) access. Denial decisions may prevent initial access or terminate access that has already been granted, ensuring continuous enforcement of security policies.",
+      "meta": {
+        "external_id": "D3-AMED",
+        "kill_chain": [
+          "Isolate:Access-Mediation"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:AccessMediation"
+        ],
+        "synonyms": [
+          "Access Control"
+        ]
+      },
+      "uuid": "a94109ec-07fb-53be-8eac-feb632b3a38a",
+      "value": "Access Mediation - D3-AMED"
+    },
+    {
       "description": "Detection of unauthorized use of administrative network protocols by analyzing network activity against a baseline.",
       "meta": {
         "external_id": "D3-ANAA",
@@ -682,6 +826,23 @@
       },
       "uuid": "621e2d87-e082-5a7b-87b7-bfe28d1a3374",
       "value": "Authentication Event Thresholding - D3-ANET"
+    },
+    {
+      "description": "Access policy administration is the systematic process of defining, implementing, and managing access control policies that dictate user permissions to resources.",
+      "meta": {
+        "external_id": "D3-APA",
+        "kill_chain": [
+          "Isolate:Access-Policy-Administration"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:AccessPolicyAdministration"
+        ],
+        "synonyms": [
+          "Access Control Administration"
+        ]
+      },
+      "uuid": "470306ea-5804-527e-9e3e-293c12f3f1b0",
+      "value": "Access Policy Administration - D3-APA"
     },
     {
       "description": "Analyzing application protocol level remote commands to detect unauthorized activity.",
@@ -1783,6 +1944,20 @@
       "value": "Change Default Password - D3-CDP"
     },
     {
+      "description": "Credential Eviction techniques disable or remove compromised credentials from a computer network.",
+      "meta": {
+        "external_id": "D3-CE",
+        "kill_chain": [
+          "Evict:Credential-Eviction"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:CredentialEviction"
+        ]
+      },
+      "uuid": "a3656ded-e4ac-5ffb-8c2d-9befa60b53b3",
+      "value": "Credential Eviction - D3-CE"
+    },
+    {
       "description": "Certificate rotation involves replacing digital certificates and their private keys to maintain cryptographic integrity and trust, mitigating key compromise risks and ensuring continuous secure communications.",
       "meta": {
         "external_id": "D3-CERO",
@@ -1801,6 +1976,470 @@
       ],
       "uuid": "f7fd9c73-a199-5e0f-819c-5ea7368c3a45",
       "value": "Certificate Rotation - D3-CERO"
+    },
+    {
+      "description": "Content Filtering techniques aid in the process of analyzing an input file for malicious or erroneous content and outputting a sanitized version.",
+      "meta": {
+        "external_id": "D3-CF",
+        "kill_chain": [
+          "Isolate:Content-Filtering"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:ContentFiltering"
+        ]
+      },
+      "related": [
+        {
+          "dest-uuid": "00f90846-cbd1-4fc5-9233-df5c2bf2a662",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "03d7999c-1f4c-42cc-8373-e7690d318104",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "045d0922-2310-4e60-b5e4-3302302cb3c5",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "06c00069-771a-4d57-8ef5-d3718c1a8771",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "0c2d00da-7742-49e7-9928-4514e5075d32",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "0f20e3cb-245b-4a61-8a91-2d93f7cb0e9b",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "0f2c410d-d740-4ed9-abb1-b8f4a7faf6c3",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "10ff21b9-5a01-4268-a1b5-3b55015f1847",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "120d5519-3098-4e1c-9191-2aa61232f073",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "1365fe3b-0f50-455d-b4da-266ce31c23b0",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "143c0cbb-a297-4142-9624-87ffc778980b",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "1c34f7aa-9341-4a48-bfab-af22e51aca6c",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "1c4e5d32-1fe9-4116-9d9d-59e3925bd6a2",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "1c5cf58c-a34a-40d7-82f4-f987cdfc2b91",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "1cfcb312-b8d7-47a4-b560-4b16cc677292",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "1e9eb839-294b-48cc-b0d3-c45555a2a004",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "232b7f21-adf9-4b42-b936-b9d6f7df856e",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "2b742742-28c3-4e1b-bab7-8350d6300fa7",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "2bce5b30-7014-4a5d-ade7-12913fe6ac36",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "2dc2b567-8821-49f9-9045-8740f3d0b958",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "2e34237d-8574-43f6-aace-ae2915de8597",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "2fedbe69-581f-447d-8a78-32ee7db939a9",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "2fee9321-3e71-4cf4-af24-d4d40d355b34",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "30208d3e-0d6b-43c8-883e-44462a514619",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "3120b9fa-23b8-4500-ae73-09494f607b7d",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "32ad5c86-2bcf-47d8-8fdc-d7f3d79a7490",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "355be19c-ffc9-46d5-8d50-d6a036c675b6",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "3731fbcd-0e43-47ae-ae6c-d15e510f0d42",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "3b6b9246-43f8-4c69-ad7a-2b11cfe0a0d9",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "3c4a2599-71ee-4405-ba1e-0e28414b4bc5",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "3ccef7ae-cb5e-48f6-8302-897105fbf55c",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "3fc9b85a-2862-4363-a64d-d692e3ffbee0",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "41868330-6ee2-4d0f-b743-9f2294c3c9b6",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "41d9846c-f6af-4302-a654-24bba2729bc6",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "43ba2b05-cf72-4b6c-8243-03a4aba41ee0",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "4ab929c6-ee2d-4fb5-aab4-b14be2ed7179",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "53ac20cd-aca3-406e-9aa0-9fc7fdc60a5a",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "573ad264-1371-4ae0-8482-d2673b719dba",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "58a3e6aa-4453-4cc8-a51f-4befe80b31a8",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "58af3705-8740-4c68-9329-ec015a7013c2",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "5a2610f6-9fff-41e1-bc27-575ca20383d4",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "5bfccc3f-2326-4112-86cc-c1ece9d8a2b5",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "5d0d3609-d06d-49e1-b9c9-b544e0c618cb",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "63220765-d418-44de-8fae-694b3912317d",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "633a100c-b2c9-41bf-9be5-905c1b16c825",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "648f995e-9c3a-41e4-aeee-98bb41037426",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "6747daa2-3533-4e78-8fb8-446ebb86448a",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "69213db5-f041-4dca-9bdd-2502a7748bf7",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "707399d6-ab3e-4963-9315-d9d3818cd6a0",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "70e52b04-2a0c-4cea-9d18-7149f1df9dc5",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "7385dfaf-6886-4229-9ecd-6fd678040830",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "77d9c726-b53e-481d-8bcc-1068aebfbb9d",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "79a47ad0-fc3b-4821-9f01-a026b1ddba21",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "7bc57495-ea59-4380-be31-a64af124ef18",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "7d57b371-10c2-45e5-b3cc-83a8fb380e4c",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "7de1f7ac-5d0c-4c9c-8873-627202205331",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "806a49c4-970d-43f9-9acc-ac0ee11e6662",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "8187bd2a-866f-4457-9009-86b0ddedffa3",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "837f9164-50af-4ac0-8219-379d8a74cefc",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "840a987a-99bd-4a80-a5c9-0cb2baa6cade",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "8c4aef43-48d5-49aa-b2af-c0cd58d30c3d",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "8e350c1d-ac79-4b5c-bd4e-7476d7e84ec5",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "8f504411-cb96-4dac-a537-8d2bb7679c59",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "8faedf87-dceb-4c35-b2a2-7286f59a3bc3",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "92a78814-b191-47ca-909c-1ccfe3777414",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "92d7da27-2d91-488e-a00c-059dc162766d",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "98b7aae1-c3d9-4bf8-9404-3adf920d5271",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "98be40f2-c86b-4ade-b6fc-4964932040e5",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "9c45eaa3-8604-4780-8988-b5074dbb9ecd",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "9e7452df-5144-4b6e-b04a-b66dd4016747",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "9efb1ea7-c37b-4595-9640-b7680cd84279",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "a1b52199-c8c5-438a-9ded-656f1d0888c6",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "a9e2cea0-c805-4bf8-9e31-f5f0513a3634",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "ad45f65b-48d2-4c06-9507-d7092cfa9396",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "b4b7458f-81f2-4d38-84be-1c5ba0167a52",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "b5327dd1-6bf9-4785-a199-25bcbd1f4a9d",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "b63a34e8-0a61-4c97-a23b-bf8a2ed812e2",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "b77cf5f3-6060-475d-bd60-40ccbf28fdc2",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "b80d107d-fa0d-4b60-9684-b0433e8bdba0",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "bc0f5e80-91c0-4e04-9fbb-e4e332c85dae",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "bd5b58a4-a52d-4a29-bc0d-3f1d3968eb6b",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "bf176076-b789-408e-8cba-7275e81c0ada",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "bf96a5a3-3bce-43b7-8597-88545984c07b",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "c63a348e-ffc2-486a-b9d9-d7f11ec54d99",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "c726e0a2-a57a-4b7b-a973-d0f013246617",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "c898c4b5-bf36-4e6e-a4ad-5b8c4c13e35b",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "c92e3d68-2349-49e4-a341-7edca2deff96",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "cbb66055-0325-4111-aca0-40547b6ad5b0",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "cc89ecbd-3d33-4a41-bcca-001e702d18fd",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "ce4b7013-640e-48a9-b501-d0025a95f4bf",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "d0b4fcdb-d67d-4ed2-99ce-788b12f8c0f4",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "d10cbd34-42e3-45c0-84d2-535a09849584",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "d201d4cc-214d-4a74-a1ba-b3fa09fd4591",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "d63a3fb8-9452-4e9d-a60a-54be68d5998c",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "d8905a46-48de-498e-86ab-4c59b5cb00b6",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "dca670cf-eeec-438f-8185-fd959d9ef211",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "deb98323-e13f-4b0c-8d94-175379069062",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "df8b2a25-8bdf-4856-953c-a04372b1c161",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "dfefe2ed-4389-4318-8762-f0272b350a1b",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "e358d692-23c0-4a31-9eb6-ecc13a8d7735",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "e51137a5-1cdc-499e-911a-abaedaa5ac86",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "e5cc9e7a-e61a-46a1-b869-55fb6eab058e",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "e64c62cf-9cd7-4a14-94ec-cdaac43ab44b",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "eb125d40-0b2d-41ac-a71a-3229241c2cd3",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "ebbe170d-aa74-4946-8511-9921243415a3",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "f0589bc3-a6ae-425a-a3d5-5659bfee07f4",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "f4599aa0-4f85-4a32-80ea-fc39dc965945",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "f6ad61ee-65f3-4bd0-a3f5-2f0accb36317",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "fa3aa267-da22-4bdd-961f-03223322a8d5",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "fc742192-19e3-466c-9eb5-964a97b29490",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "ff975a33-e77e-48b5-8558-f6a876e306f4",
+          "type": "filters"
+        },
+        {
+          "dest-uuid": "ffeb0780-356e-4261-b036-cfb6bd234335",
+          "type": "filters"
+        }
+      ],
+      "uuid": "35368c7a-8033-5ace-847a-72db5884fcd1",
+      "value": "Content Filtering - D3-CF"
     },
     {
       "description": "Content format conversion is mechanical transformation from one format to another which may be normalization or specifically flattening.",
@@ -1829,6 +2468,122 @@
       },
       "uuid": "e6763c04-e34a-5063-b800-2a8cc396b59b",
       "value": "Control Flow Integrity - D3-CFI"
+    },
+    {
+      "description": "Credential Hardening techniques modify system or network properties in order to protect system or network/domain credentials.",
+      "meta": {
+        "external_id": "D3-CH",
+        "kill_chain": [
+          "Harden:Credential-Hardening"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:CredentialHardening"
+        ]
+      },
+      "related": [
+        {
+          "dest-uuid": "09c4c11e-4fa1-4f8c-8dad-3cf8e69ad119",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "0a67384c-403a-4ab3-bfaa-72b179f4a0a8",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "10ffac09-e42d-4f56-ab20-db94c67d76ff",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "1d24cdee-9ea2-4189-b08e-af110bf2435d",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "3fc01293-ef5e-41c6-86ce-61f10706b64a",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "435dfb86-2697-4867-85b5-2fef496c0517",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "677569f9-a8b0-459e-ab24-7f18091fa7bf",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "692074ae-bb62-4a5e-a735-02cb6bde458c",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "6add2ab5-2711-4e9d-87c8-7a0be8531530",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "768dce68-8d0d-477a-b01d-0eea98b963a1",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "861b8fd2-57f3-4ee1-ab5d-c19c3b8c7a4a",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "86850eff-2729-40c3-b85e-c4af26da4a2d",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "890c9858-598c-401d-a4d5-c67ebcdd703a",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "8a2f40cf-8325-47f9-96e4-b1ca4c7389bd",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "8bb4538f-f16f-49f0-a431-70b5444c7349",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "8cdeb020-e31e-4f88-a582-f53dcfbda819",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "94cb00a4-b295-4d06-aa2b-5653b9c1be9c",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "9e09ddb2-1746-4448-9cad-7f8b41777d6d",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "ab491499-8be1-4e0a-9b48-866269a39afa",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "c3c8c916-2f3c-4e71-94b2-240bdfc996f0",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "c9a8d958-fcdb-40d2-af4c-461c8031651a",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "d0b4fcdb-d67d-4ed2-99ce-788b12f8c0f4",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "edf91964-b26e-4b4a-9600-ccacd7d7df24",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "f005e783-57d4-4837-88ad-dbe7faee1c51",
+          "type": "hardens"
+        },
+        {
+          "dest-uuid": "fab8fc7d-f27f-4fbb-9de6-44740aade05f",
+          "type": "hardens"
+        }
+      ],
+      "uuid": "188c74ca-71d7-5e0d-9569-72b7bd1c8bf7",
+      "value": "Credential Hardening - D3-CH"
     },
     {
       "description": "A decoy service, system, or environment, that is connected to the enterprise network, and simulates or emulates certain functionality to the network, without exposing full access to a production system.",
@@ -4187,6 +4942,29 @@
       "value": "Dead Code Elimination - D3-DCE"
     },
     {
+      "description": "A Decoy Environment comprises hosts and networks for the purposes of deceiving an attacker.",
+      "meta": {
+        "external_id": "D3-DE",
+        "kill_chain": [
+          "Deceive:Decoy-Environment"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:DecoyEnvironment"
+        ],
+        "synonyms": [
+          "Honeypot"
+        ]
+      },
+      "related": [
+        {
+          "dest-uuid": "354a7f88-63fb-41b5-a801-ce3b377b36f1",
+          "type": "manages"
+        }
+      ],
+      "uuid": "07be674e-df13-56fc-87ea-202755c0ff97",
+      "value": "Decoy Environment - D3-DE"
+    },
+    {
       "description": "Data exchange mapping identifies and models the organization's intended design for the flows of the data types, formats, and volumes between systems at the application layer.",
       "meta": {
         "external_id": "D3-DEM",
@@ -5161,6 +5939,23 @@
       ],
       "uuid": "cbe6cd4b-e6fb-595a-84b4-72956ac048f5",
       "value": "DNS Traffic Analysis - D3-DNSTA"
+    },
+    {
+      "description": "A Decoy Object is created and deployed for the purposes of deceiving attackers.",
+      "meta": {
+        "external_id": "D3-DO",
+        "kill_chain": [
+          "Deceive:Decoy-Object"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:DecoyObject"
+        ],
+        "synonyms": [
+          "Lure"
+        ]
+      },
+      "uuid": "cefc56f2-409c-5a27-9132-7f0a2909ceac",
+      "value": "Decoy Object - D3-DO"
     },
     {
       "description": "Establishing a fake online identity to misdirect, deceive, and or interact with adversaries.",
@@ -6332,6 +7127,20 @@
       "value": "Exception Handler Pointer Validation - D3-EHPV"
     },
     {
+      "description": "Execution Isolation techniques prevent application processes from accessing non-essential system resources, such as memory, devices, or files.",
+      "meta": {
+        "external_id": "D3-EI",
+        "kill_chain": [
+          "Isolate:Execution-Isolation"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:ExecutionIsolation"
+        ]
+      },
+      "uuid": "ceb97758-500e-5b8d-90c3-d3f11222db5d",
+      "value": "Execution Isolation - D3-EI"
+    },
+    {
       "description": "Monitoring electronic lock and door hardware states and access events (e.g., locked/unlocked, access granted/denied, door forced/held, tamper) to detect and respond to unauthorized entry.",
       "meta": {
         "external_id": "D3-ELM",
@@ -6440,6 +7249,470 @@
       },
       "uuid": "4f6861bc-6c0b-51b1-bd5c-5b806951e2cd",
       "value": "Encrypted Tunnels - D3-ET"
+    },
+    {
+      "description": "File Analysis is an analytic process to determine a file's status. For example: virus, trojan, benign, malicious, trusted, unauthorized, sensitive, etc.",
+      "meta": {
+        "external_id": "D3-FA",
+        "kill_chain": [
+          "Detect:File-Analysis"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:FileAnalysis"
+        ]
+      },
+      "related": [
+        {
+          "dest-uuid": "00f90846-cbd1-4fc5-9233-df5c2bf2a662",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "03d7999c-1f4c-42cc-8373-e7690d318104",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "045d0922-2310-4e60-b5e4-3302302cb3c5",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "06c00069-771a-4d57-8ef5-d3718c1a8771",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "0c2d00da-7742-49e7-9928-4514e5075d32",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "0f20e3cb-245b-4a61-8a91-2d93f7cb0e9b",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "0f2c410d-d740-4ed9-abb1-b8f4a7faf6c3",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "10ff21b9-5a01-4268-a1b5-3b55015f1847",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "120d5519-3098-4e1c-9191-2aa61232f073",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "1365fe3b-0f50-455d-b4da-266ce31c23b0",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "143c0cbb-a297-4142-9624-87ffc778980b",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "1c34f7aa-9341-4a48-bfab-af22e51aca6c",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "1c4e5d32-1fe9-4116-9d9d-59e3925bd6a2",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "1c5cf58c-a34a-40d7-82f4-f987cdfc2b91",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "1cfcb312-b8d7-47a4-b560-4b16cc677292",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "1e9eb839-294b-48cc-b0d3-c45555a2a004",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "232b7f21-adf9-4b42-b936-b9d6f7df856e",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "2b742742-28c3-4e1b-bab7-8350d6300fa7",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "2bce5b30-7014-4a5d-ade7-12913fe6ac36",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "2dc2b567-8821-49f9-9045-8740f3d0b958",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "2e34237d-8574-43f6-aace-ae2915de8597",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "2fedbe69-581f-447d-8a78-32ee7db939a9",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "2fee9321-3e71-4cf4-af24-d4d40d355b34",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "30208d3e-0d6b-43c8-883e-44462a514619",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "3120b9fa-23b8-4500-ae73-09494f607b7d",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "32ad5c86-2bcf-47d8-8fdc-d7f3d79a7490",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "355be19c-ffc9-46d5-8d50-d6a036c675b6",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "3731fbcd-0e43-47ae-ae6c-d15e510f0d42",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "3b6b9246-43f8-4c69-ad7a-2b11cfe0a0d9",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "3c4a2599-71ee-4405-ba1e-0e28414b4bc5",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "3ccef7ae-cb5e-48f6-8302-897105fbf55c",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "3fc9b85a-2862-4363-a64d-d692e3ffbee0",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "41868330-6ee2-4d0f-b743-9f2294c3c9b6",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "41d9846c-f6af-4302-a654-24bba2729bc6",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "43ba2b05-cf72-4b6c-8243-03a4aba41ee0",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "4ab929c6-ee2d-4fb5-aab4-b14be2ed7179",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "53ac20cd-aca3-406e-9aa0-9fc7fdc60a5a",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "573ad264-1371-4ae0-8482-d2673b719dba",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "58a3e6aa-4453-4cc8-a51f-4befe80b31a8",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "58af3705-8740-4c68-9329-ec015a7013c2",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "5a2610f6-9fff-41e1-bc27-575ca20383d4",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "5bfccc3f-2326-4112-86cc-c1ece9d8a2b5",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "5d0d3609-d06d-49e1-b9c9-b544e0c618cb",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "63220765-d418-44de-8fae-694b3912317d",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "633a100c-b2c9-41bf-9be5-905c1b16c825",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "648f995e-9c3a-41e4-aeee-98bb41037426",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "6747daa2-3533-4e78-8fb8-446ebb86448a",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "69213db5-f041-4dca-9bdd-2502a7748bf7",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "707399d6-ab3e-4963-9315-d9d3818cd6a0",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "70e52b04-2a0c-4cea-9d18-7149f1df9dc5",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "7385dfaf-6886-4229-9ecd-6fd678040830",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "77d9c726-b53e-481d-8bcc-1068aebfbb9d",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "79a47ad0-fc3b-4821-9f01-a026b1ddba21",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "7bc57495-ea59-4380-be31-a64af124ef18",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "7d57b371-10c2-45e5-b3cc-83a8fb380e4c",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "7de1f7ac-5d0c-4c9c-8873-627202205331",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "806a49c4-970d-43f9-9acc-ac0ee11e6662",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "8187bd2a-866f-4457-9009-86b0ddedffa3",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "837f9164-50af-4ac0-8219-379d8a74cefc",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "840a987a-99bd-4a80-a5c9-0cb2baa6cade",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "8c4aef43-48d5-49aa-b2af-c0cd58d30c3d",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "8e350c1d-ac79-4b5c-bd4e-7476d7e84ec5",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "8f504411-cb96-4dac-a537-8d2bb7679c59",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "8faedf87-dceb-4c35-b2a2-7286f59a3bc3",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "92a78814-b191-47ca-909c-1ccfe3777414",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "92d7da27-2d91-488e-a00c-059dc162766d",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "98b7aae1-c3d9-4bf8-9404-3adf920d5271",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "98be40f2-c86b-4ade-b6fc-4964932040e5",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "9c45eaa3-8604-4780-8988-b5074dbb9ecd",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "9e7452df-5144-4b6e-b04a-b66dd4016747",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "9efb1ea7-c37b-4595-9640-b7680cd84279",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "a1b52199-c8c5-438a-9ded-656f1d0888c6",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "a9e2cea0-c805-4bf8-9e31-f5f0513a3634",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "ad45f65b-48d2-4c06-9507-d7092cfa9396",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "b4b7458f-81f2-4d38-84be-1c5ba0167a52",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "b5327dd1-6bf9-4785-a199-25bcbd1f4a9d",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "b63a34e8-0a61-4c97-a23b-bf8a2ed812e2",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "b77cf5f3-6060-475d-bd60-40ccbf28fdc2",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "b80d107d-fa0d-4b60-9684-b0433e8bdba0",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "bc0f5e80-91c0-4e04-9fbb-e4e332c85dae",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "bd5b58a4-a52d-4a29-bc0d-3f1d3968eb6b",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "bf176076-b789-408e-8cba-7275e81c0ada",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "bf96a5a3-3bce-43b7-8597-88545984c07b",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "c63a348e-ffc2-486a-b9d9-d7f11ec54d99",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "c726e0a2-a57a-4b7b-a973-d0f013246617",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "c898c4b5-bf36-4e6e-a4ad-5b8c4c13e35b",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "c92e3d68-2349-49e4-a341-7edca2deff96",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "cbb66055-0325-4111-aca0-40547b6ad5b0",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "cc89ecbd-3d33-4a41-bcca-001e702d18fd",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "ce4b7013-640e-48a9-b501-d0025a95f4bf",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "d0b4fcdb-d67d-4ed2-99ce-788b12f8c0f4",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "d10cbd34-42e3-45c0-84d2-535a09849584",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "d201d4cc-214d-4a74-a1ba-b3fa09fd4591",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "d63a3fb8-9452-4e9d-a60a-54be68d5998c",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "d8905a46-48de-498e-86ab-4c59b5cb00b6",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "dca670cf-eeec-438f-8185-fd959d9ef211",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "deb98323-e13f-4b0c-8d94-175379069062",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "df8b2a25-8bdf-4856-953c-a04372b1c161",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "dfefe2ed-4389-4318-8762-f0272b350a1b",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "e358d692-23c0-4a31-9eb6-ecc13a8d7735",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "e51137a5-1cdc-499e-911a-abaedaa5ac86",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "e5cc9e7a-e61a-46a1-b869-55fb6eab058e",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "e64c62cf-9cd7-4a14-94ec-cdaac43ab44b",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "eb125d40-0b2d-41ac-a71a-3229241c2cd3",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "ebbe170d-aa74-4946-8511-9921243415a3",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "f0589bc3-a6ae-425a-a3d5-5659bfee07f4",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "f4599aa0-4f85-4a32-80ea-fc39dc965945",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "f6ad61ee-65f3-4bd0-a3f5-2f0accb36317",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "fa3aa267-da22-4bdd-961f-03223322a8d5",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "fc742192-19e3-466c-9eb5-964a97b29490",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "ff975a33-e77e-48b5-8558-f6a876e306f4",
+          "type": "analyzes"
+        },
+        {
+          "dest-uuid": "ffeb0780-356e-4261-b036-cfb6bd234335",
+          "type": "analyzes"
+        }
+      ],
+      "uuid": "cdb1efb6-7930-5799-83af-e3b9255408d8",
+      "value": "File Analysis - D3-FA"
     },
     {
       "description": "Analyzing the files accessed by a process to identify unauthorized activity.",
@@ -8957,6 +10230,20 @@
       "value": "Indirect Branch Call Analysis - D3-IBCA"
     },
     {
+      "description": "Analyzing identifier artifacts such as IP address, domain names, or URL(I)s.",
+      "meta": {
+        "external_id": "D3-ID",
+        "kill_chain": [
+          "Detect:Identifier-Analysis"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:IdentifierAnalysis"
+        ]
+      },
+      "uuid": "811d57a8-f2d0-5890-aac7-cb5b572ed916",
+      "value": "Identifier Analysis - D3-ID"
+    },
+    {
       "description": "Operating system level mechanisms to prevent abusive input device exploitation.",
       "meta": {
         "external_id": "D3-IDA",
@@ -9937,6 +11224,24 @@
       "value": "Logical Link Mapping - D3-LLM"
     },
     {
+      "description": "Analyzing email or instant message content to detect unauthorized activity.",
+      "meta": {
+        "external_id": "D3-MA",
+        "kill_chain": [
+          "Detect:Message-Analysis"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:MessageAnalysis"
+        ],
+        "synonyms": [
+          "Electronic Message Analysis",
+          "Email Or Messaging Analysis"
+        ]
+      },
+      "uuid": "7aceef84-5ab5-5795-b84a-ea48e4f84bbf",
+      "value": "Message Analysis - D3-MA"
+    },
+    {
       "description": "Controlling access to local computer system resources with kernel-level capabilities.",
       "meta": {
         "external_id": "D3-MAC",
@@ -10596,6 +11901,20 @@
       "value": "Multi-factor Authentication - D3-MFA"
     },
     {
+      "description": "The application of security controls to user-to-user and system-to-system communications so messages remain confidential, unaltered, and verifiable while resisting injection, replay, and tampering.",
+      "meta": {
+        "external_id": "D3-MH",
+        "kill_chain": [
+          "Harden:Message-Hardening"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:MessageHardening"
+        ]
+      },
+      "uuid": "105feb26-f3a4-5a77-bbcb-e0372771705d",
+      "value": "Message Hardening - D3-MH"
+    },
+    {
       "description": "Monitoring events from motion detectors (e.g., passive IR, microwave, dual-technology) to detect presence or movement within protected areas.",
       "meta": {
         "external_id": "D3-MSM",
@@ -10629,6 +11948,34 @@
       },
       "uuid": "de1e161e-5939-5078-b81f-b93f84584170",
       "value": "Network Access Mediation - D3-NAM"
+    },
+    {
+      "description": "Network Isolation techniques prevent network hosts from accessing non-essential system network resources.",
+      "meta": {
+        "external_id": "D3-NI",
+        "kill_chain": [
+          "Isolate:Network-Isolation"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:NetworkIsolation"
+        ]
+      },
+      "uuid": "003e59d6-d44c-5981-9730-9e28021bf051",
+      "value": "Network Isolation - D3-NI"
+    },
+    {
+      "description": "Network mapping encompasses the techniques to identify and model the physical layer, network layer, and data exchange layers of the organization's network and their physical location, and determine allowed pathways through that network.",
+      "meta": {
+        "external_id": "D3-NM",
+        "kill_chain": [
+          "Model:Network-Mapping"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:NetworkMapping"
+        ]
+      },
+      "uuid": "3d12c7c2-136f-589e-b05f-8844e7c4f5ae",
+      "value": "Network Mapping - D3-NM"
     },
     {
       "description": "Network node inventorying identifies and records all the network nodes (hosts, routers, switches, firewalls, etc.) in the organization's architecture.",
@@ -10777,6 +12124,20 @@
       ],
       "uuid": "293eac54-0d14-54f6-b9b8-c8eaf9ed6b01",
       "value": "Network Resource Access Mediation - D3-NRAM"
+    },
+    {
+      "description": "Analyzing intercepted or summarized computer network traffic to detect unauthorized activity.",
+      "meta": {
+        "external_id": "D3-NTA",
+        "kill_chain": [
+          "Detect:Network-Traffic-Analysis"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:NetworkTrafficAnalysis"
+        ]
+      },
+      "uuid": "87a636db-e87a-5d6b-9bff-e92a7e3d1332",
+      "value": "Network Traffic Analysis - D3-NTA"
     },
     {
       "description": "Establishing baseline communities of network hosts and identifying statistically divergent inter-community communication.",
@@ -12099,6 +13460,23 @@
       "value": "Network Vulnerability Assessment - D3-NVA"
     },
     {
+      "description": "Operational activity mapping identifies activities of the organization and the organization's suborganizations, groups, roles, and individuals that carry out the activities and then establishes the dependencies of the activities on the systems and people that perform those activities.",
+      "meta": {
+        "external_id": "D3-OAM",
+        "kill_chain": [
+          "Model:Operational-Activity-Mapping"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:OperationalActivityMapping"
+        ],
+        "synonyms": [
+          "Mission Mapping"
+        ]
+      },
+      "uuid": "62e5e1f9-eab9-5b4f-8265-5c6a380940fe",
+      "value": "Operational Activity Mapping - D3-OAM"
+    },
+    {
       "description": "Operational dependency mapping identifies and models the dependencies of the organization's activities on each other and on the organization's performers (people, systems, and services.)  This may include modeling the higher- and lower-level activities of an organization forming a hierarchy, or layering, of the dependencies in an organization's activities.",
       "meta": {
         "external_id": "D3-ODM",
@@ -12111,6 +13489,20 @@
       },
       "uuid": "8410a1a0-659b-5c22-b15b-1773e7271c70",
       "value": "Operational Dependency Mapping - D3-ODM"
+    },
+    {
+      "description": "Terminate or remove an object from a host machine. This is the broadest class for object eviction.",
+      "meta": {
+        "external_id": "D3-OE",
+        "kill_chain": [
+          "Evict:Object-Eviction"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:ObjectEviction"
+        ]
+      },
+      "uuid": "8621e963-9586-5522-8228-b103af7c8e8c",
+      "value": "Object Eviction - D3-OE"
     },
     {
       "description": "Validation of variable state in the context of the control logic of the operational application.",
@@ -12553,6 +13945,20 @@
       "value": "OT Variable Access Restriction - D3-OVAR"
     },
     {
+      "description": "Process Analysis consists of observing a running application process and analyzing it to watch for certain behaviors or conditions which may indicate adversary activity. Analysis can occur inside of the process or through a third-party monitoring application. Examples include monitoring system and privileged calls, monitoring process initiation chains, and memory boundary allocations.",
+      "meta": {
+        "external_id": "D3-PA",
+        "kill_chain": [
+          "Detect:Process-Analysis"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:ProcessAnalysis"
+        ]
+      },
+      "uuid": "b37704e1-5d9a-5695-a693-74d302a2fc30",
+      "value": "Process Analysis - D3-PA"
+    },
+    {
       "description": "Physical access mediation is the process of granting or denying specific requests to enter specific physical facilities (e.g., Federal buildings, military establishments, border crossing entrances.)",
       "meta": {
         "external_id": "D3-PAM",
@@ -12672,6 +14078,20 @@
       "value": "Process Code Segment Verification - D3-PCSV"
     },
     {
+      "description": "Process eviction techniques terminate or remove running process.",
+      "meta": {
+        "external_id": "D3-PE",
+        "kill_chain": [
+          "Evict:Process-Eviction"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:ProcessEviction"
+        ]
+      },
+      "uuid": "57dfa853-a8de-5835-aa68-929400d7e8f6",
+      "value": "Process Eviction - D3-PE"
+    },
+    {
       "description": "Physical changes to a computer enclosure which reduce the ability for agents or the environment to affect the contained computer system.",
       "meta": {
         "external_id": "D3-PEH",
@@ -12698,6 +14118,38 @@
       },
       "uuid": "1712071c-f306-54a3-8d20-092ec6649003",
       "value": "Peripheral Firmware Verification - D3-PFV"
+    },
+    {
+      "description": "Hardening components of a Platform with the intention of making them more difficult to exploit.\n\nPlatforms includes components such as:\n* BIOS UEFI Subsystems\n* Hardware security devices such as Trusted Platform Modules\n* Boot process logic or code\n* Kernel software components",
+      "meta": {
+        "external_id": "D3-PH",
+        "kill_chain": [
+          "Harden:Platform-Hardening"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:PlatformHardening"
+        ],
+        "synonyms": [
+          "Endpoint Hardening",
+          "System Hardening"
+        ]
+      },
+      "uuid": "e47aa3d5-a99b-5b4e-b364-122c6994a868",
+      "value": "Platform Hardening - D3-PH"
+    },
+    {
+      "description": "Monitoring the physical access of a specified environment through detection, recording, reviewing, and logging of who/what enters and exists areas.",
+      "meta": {
+        "external_id": "D3-PHAM",
+        "kill_chain": [
+          "Detect:Physical-Access-Monitoring"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:PhysicalAccessMonitoring"
+        ]
+      },
+      "uuid": "3f6df6c8-7d3b-5a34-9726-b7088fed5d6a",
+      "value": "Physical Access Monitoring - D3-PHAM"
     },
     {
       "description": "Detecting anomalies that indicate malicious activity by comparing the amount of data downloaded versus data uploaded by a host.",
@@ -13289,6 +14741,20 @@
       ],
       "uuid": "60e93778-5f3b-5b2d-9ab3-a9e8e2f332ef",
       "value": "Physical Link Mapping - D3-PLM"
+    },
+    {
+      "description": "Monitoring platform components such as operating systems software, hardware devices, or firmware.",
+      "meta": {
+        "external_id": "D3-PM",
+        "kill_chain": [
+          "Detect:Platform-Monitoring"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:PlatformMonitoring"
+        ]
+      },
+      "uuid": "a9eee53e-824f-53a2-bb4d-9156b94116f0",
+      "value": "Platform Monitoring - D3-PM"
     },
     {
       "description": "Collecting network communication protocol metadata and identifying statistical outliers.",
@@ -14389,6 +15855,20 @@
       ],
       "uuid": "ec4832ee-80f9-597d-b156-8a7cf5808c09",
       "value": "Password Authentication - D3-PWA"
+    },
+    {
+      "description": "Restoring an entity's access to resources.",
+      "meta": {
+        "external_id": "D3-RA",
+        "kill_chain": [
+          "Restore:Restore-Access"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:RestoreAccess"
+        ]
+      },
+      "uuid": "472e0d0b-97b1-578e-bea0-bdac995ddb8f",
+      "value": "Restore Access - D3-RA"
     },
     {
       "description": "Routing access mediation is a network security approach that manages and controls access at the network layer using VPNs, tunneling protocols, firewall rules, and traffic inspection to ensure secure and efficient data routing.",
@@ -16140,6 +17620,20 @@
       "value": "Restore Network Access - D3-RNA"
     },
     {
+      "description": "Restoring an object for an entity to access. This is the broadest class for object restoral.",
+      "meta": {
+        "external_id": "D3-RO",
+        "kill_chain": [
+          "Restore:Restore-Object"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:RestoreObject"
+        ]
+      },
+      "uuid": "43208a48-7858-50a8-b16f-2a31cc645ab2",
+      "value": "Restore Object - D3-RO"
+    },
+    {
       "description": "The detection of an internal host relaying traffic between the internal network and the external network.",
       "meta": {
         "external_id": "D3-RPA",
@@ -17670,6 +19164,20 @@
       "value": "System Call Filtering - D3-SCF"
     },
     {
+      "description": "Hardening source code with the intention of making it more difficult to exploit and less error prone.",
+      "meta": {
+        "external_id": "D3-SCH",
+        "kill_chain": [
+          "Harden:Source-Code-Hardening"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:SourceCodeHardening"
+        ]
+      },
+      "uuid": "b9760a21-f40f-5687-a527-481c987dd710",
+      "value": "Source Code Hardening - D3-SCH"
+    },
+    {
       "description": "Restricting system configuration modifications to a specific user or group of users.",
       "meta": {
         "external_id": "D3-SCP",
@@ -18654,6 +20162,20 @@
       "value": "System Dependency Mapping - D3-SYSDM"
     },
     {
+      "description": "System mapping encompasses the techniques to identify the organization's systems, how they are configured and decomposed into subsystems and components, how they are dependent on one another, and where they are physically located.",
+      "meta": {
+        "external_id": "D3-SYSM",
+        "kill_chain": [
+          "Model:System-Mapping"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:SystemMapping"
+        ]
+      },
+      "uuid": "477b0fe3-6c65-5589-8a55-16d245f6ec07",
+      "value": "System Mapping - D3-SYSM"
+    },
+    {
       "description": "System vulnerability assessment relates all the vulnerabilities of a system's components in the context of their configuration and internal dependencies and can also include assessing risk emerging from the system's design as a whole, not just the sum of individual component vulnerabilities.",
       "meta": {
         "external_id": "D3-SYSVA",
@@ -18944,6 +20466,24 @@
       ],
       "uuid": "5da33a29-c3a3-5235-80b7-58cbf01da3a5",
       "value": "User Account Permissions - D3-UAP"
+    },
+    {
+      "description": "User behavior analytics (\"UBA\") as defined by Gartner, is a cybersecurity process about detection of insider threats, targeted attacks, and financial fraud. UBA solutions look at patterns of human behavior, and then apply algorithms and statistical analysis to detect meaningful anomalies from those patterns-anomalies that indicate potential threats.' Instead of tracking devices or security events, UBA tracks a system's users. Big data platforms are increasing UBA functionality by allowing them to analyze petabytes worth of data to detect insider threats and advanced persistent threats.",
+      "meta": {
+        "external_id": "D3-UBA",
+        "kill_chain": [
+          "Detect:User-Behavior-Analysis"
+        ],
+        "refs": [
+          "https://d3fend.mitre.org/technique/d3f:UserBehaviorAnalysis"
+        ],
+        "synonyms": [
+          "Credential Monitoring",
+          "UBA"
+        ]
+      },
+      "uuid": "fce0a3e2-6177-5536-a456-b22623cfac1b",
+      "value": "User Behavior Analysis - D3-UBA"
     },
     {
       "description": "Analyzing the amount of data transferred by a user.",
