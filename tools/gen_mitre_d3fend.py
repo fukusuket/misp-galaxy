@@ -107,6 +107,17 @@ def external_id_to_uuid(cluster_name: str) -> tuple[dict, set]:
     return result, revoked
 
 
+def label_of(value: dict) -> str:
+    """The technique name of a cluster value, whichever naming the run that wrote it used.
+
+    Values were named after the bare label until the galaxy moved to the
+    "<name> - <id>" convention every other MITRE galaxy follows, so a value read
+    back from the cluster can carry either form.
+    """
+    suffix = f" - {value['meta']['external_id']}"
+    return value['value'][:-len(suffix)] if value['value'].endswith(suffix) else value['value']
+
+
 def relation_keys(value: dict) -> set:
     """The (dest-uuid, type) pairs of a value, deduplicated."""
     return {(rel['dest-uuid'], rel['type']) for rel in value.get('related', [])}
@@ -237,7 +248,7 @@ def main() -> None:
         for d3fend_id, technique_json in executor.map(get_technique, sorted(techniques)):
             technique = techniques[d3fend_id]
             value = {
-                'value': technique['value'],
+                'value': f"{technique['value']} - {d3fend_id}",
                 'description': technique['description'],
                 'uuid': str(uuid.uuid5(uuid.UUID(uuid_seed), d3fend_id)),
                 'meta': {
@@ -269,8 +280,10 @@ def main() -> None:
         if not previous:
             continue
         synonyms = set(value['meta'].get('synonyms', [])) | set(previous['meta'].get('synonyms', []))
-        if previous['value'] != value['value']:
-            print(f"Renamed: {previous['value']} -> {value['value']}")
+        if label_of(previous) != label_of(value):
+            # Only an upstream rename earns a synonym: renaming every value to the
+            # "<name> - <id>" convention is a migration, not 241 renames.
+            print(f"Renamed: {label_of(previous)} -> {label_of(value)}")
             synonyms.add(previous['value'])
         if synonyms:
             value['meta']['synonyms'] = sorted(synonyms)
@@ -286,7 +299,8 @@ def main() -> None:
     for external_id, previous in previous_values.items():
         if external_id in techniques:
             continue
-        print(f"Revoked: {previous['value']} - {external_id}")
+        print(f"Revoked: {label_of(previous)} - {external_id}")
+        previous['value'] = f"{label_of(previous)} - {external_id}"
         previous['revoked'] = True
         linked = {key for key in relation_keys(previous) if key[1] == 'revoked-by'}
         if linked:
@@ -295,13 +309,13 @@ def main() -> None:
             ratio, successor_id = find_successor(previous, candidates)
             if ratio >= successor_link_ratio:
                 successor = candidates[successor_id]
-                print(f"    renamed upstream to {successor['value']} - {successor_id} "
+                print(f"    renamed upstream to {successor['value']} "
                       f"(mapping overlap {ratio:.2f}), linking with revoked-by")
                 previous['related'] = [{'dest-uuid': successor['uuid'], 'type': 'revoked-by'}]
             else:
                 if ratio >= successor_hint_ratio:
                     print(f"WARNING: {external_id} may have been renamed to "
-                          f"{candidates[successor_id]['value']} - {successor_id} "
+                          f"{candidates[successor_id]['value']} "
                           f"(mapping overlap {ratio:.2f}); add revoked-by by hand if it was")
                 if previous.get('related'):
                     previous['related'] = as_related(relation_keys(previous))
