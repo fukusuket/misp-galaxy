@@ -456,7 +456,7 @@ Category: *engage* - source: *https://engage.mitre.org* - total: *77* elements
 
 [MITRE Fight Fraud Framework Techniques](https://www.misp-galaxy.org/mitre-fraud-framework) - Fraud techniques from the MITRE Fight Fraud Framework (F3).
 
-Category: *attack-pattern* - source: *https://ctid.mitre.org/fraud/* - total: *123* elements
+Category: *attack-pattern* - source: *https://ctid.mitre.org/fightfraud* - total: *123* elements
 
 [[HTML](https://www.misp-galaxy.org/mitre-fraud-framework)] - [[JSON](https://github.com/MISP/misp-galaxy/blob/main/clusters/mitre-fraud-framework.json)]
 
