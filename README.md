@@ -416,7 +416,7 @@ Category: *course-of-action* - source: *https://github.com/mitre/cti* - total: *
 
 [MITRE D3FEND Techniques](https://www.misp-galaxy.org/mitre-d3fend) - Defensive countermeasure techniques from MITRE D3FEND.
 
-Category: *d3fend* - source: *https://d3fend.mitre.org/* - total: *171* elements
+Category: *d3fend* - source: *https://d3fend.mitre.org/* - total: *275* elements
 
 [[HTML](https://www.misp-galaxy.org/mitre-d3fend)] - [[JSON](https://github.com/MISP/misp-galaxy/blob/main/clusters/mitre-d3fend.json)]
 
