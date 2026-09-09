@@ -159,16 +159,66 @@ def subtechnique_parents(objects: list[dict]) -> dict[str, str]:
     }
 
 
-def build_values(objects: list[dict], tactics_by_id: dict[str, dict], parent_of: dict[str, str],
-                 attack_uuid: dict[str, str], unresolved: set) -> list[dict]:
-    shortnames = {tactic['shortname'] for tactic in tactics_by_id.values()}
-    values = []
+def live_techniques(objects: list[dict]):
+    """The attack-pattern objects upstream still stands behind."""
     for item in objects:
         if item.get('type') != 'attack-pattern':
             continue
         if item.get('x_mitre_deprecated') or item.get('revoked'):
             continue
+        yield item
 
+
+def build_kill_chain(item: dict, external_id: str, shortnames: set) -> list[str]:
+    """The tactics of a technique, in upstream order, deduplicated."""
+    kill_chain = []
+    for phase in item.get('kill_chain_phases', []):
+        phase_name = phase.get('phase_name')
+        if not phase_name:
+            continue
+        if phase_name not in shortnames:
+            print(f"WARNING: {external_id} sits in tactic {phase_name}, "
+                  f"which the matrix does not declare")
+        chain = f'{KILL_CHAIN_NAME}:{phase_name}'
+        if chain not in kill_chain:
+            kill_chain.append(chain)
+    return kill_chain
+
+
+def build_related(item: dict, external_id: str, parent_of: dict[str, str],
+                  attack_uuid: dict[str, str], unresolved: set) -> tuple[list[dict], str | None]:
+    """The relationships of a technique, and the ATT&CK id to record on it, if any."""
+    related = []
+    parent = parent_of.get(item['id'])
+    if parent:
+        related.append({'dest-uuid': stix_id_to_uuid(parent), 'type': 'subtechnique-of'})
+
+    # F3 reuses ATT&CK techniques where they apply to fraud, and mints its own
+    # uuid for each, so the ATT&CK galaxy holds the same technique under a
+    # different uuid. Link the two rather than deduplicating them: every
+    # inbound reference this cluster already has lands on one of these values.
+    # Upstream flags them isAttack on the site; in the STIX bundle the T####
+    # external id is the only signal, and it selects exactly the same set.
+    attack_id = None
+    if external_id.startswith('T'):
+        dest = attack_uuid.get(external_id)
+        if dest:
+            attack_id = external_id
+            related.append({'dest-uuid': dest, 'type': 'related-to',
+                            'tags': [TAG_ALMOST_CERTAIN]})
+        else:
+            # An id F3 minted inside the ATT&CK namespace that ATT&CK does not
+            # have, or an ATT&CK galaxy older than the F3 release.
+            unresolved.add(external_id)
+
+    return sorted(related, key=lambda rel: (rel['type'], rel['dest-uuid'])), attack_id
+
+
+def build_values(objects: list[dict], tactics_by_id: dict[str, dict], parent_of: dict[str, str],
+                 attack_uuid: dict[str, str], unresolved: set) -> list[dict]:
+    shortnames = {tactic['shortname'] for tactic in tactics_by_id.values()}
+    values = []
+    for item in live_techniques(objects):
         external_id = first_external_id(item)
         if not external_id:
             print(f"WARNING: {item['id']} has no external id, skipped")
@@ -178,42 +228,13 @@ def build_values(objects: list[dict], tactics_by_id: dict[str, dict], parent_of:
             'external_id': external_id,
             'refs': [TECHNIQUE_URL.format(external_id)],
         }
-
-        kill_chain = []
-        for phase in item.get('kill_chain_phases', []):
-            phase_name = phase.get('phase_name')
-            if not phase_name:
-                continue
-            if phase_name not in shortnames:
-                print(f"WARNING: {external_id} sits in tactic {phase_name}, "
-                      f"which the matrix does not declare")
-            chain = f'{KILL_CHAIN_NAME}:{phase_name}'
-            if chain not in kill_chain:
-                kill_chain.append(chain)
+        kill_chain = build_kill_chain(item, external_id, shortnames)
         if kill_chain:
             meta['kill_chain'] = kill_chain
 
-        related = []
-        parent = parent_of.get(item['id'])
-        if parent:
-            related.append({'dest-uuid': stix_id_to_uuid(parent), 'type': 'subtechnique-of'})
-
-        # F3 reuses ATT&CK techniques where they apply to fraud, and mints its own
-        # uuid for each, so the ATT&CK galaxy holds the same technique under a
-        # different uuid. Link the two rather than deduplicating them: every
-        # inbound reference this cluster already has lands on one of these values.
-        # Upstream flags them isAttack on the site; in the STIX bundle the T####
-        # external id is the only signal, and it selects exactly the same set.
-        if external_id.startswith('T'):
-            dest = attack_uuid.get(external_id)
-            if dest:
-                meta['mitre_attack_id'] = external_id
-                related.append({'dest-uuid': dest, 'type': 'related-to',
-                                'tags': [TAG_ALMOST_CERTAIN]})
-            else:
-                # An id F3 minted inside the ATT&CK namespace that ATT&CK does not
-                # have, or an ATT&CK galaxy older than the F3 release.
-                unresolved.add(external_id)
+        related, attack_id = build_related(item, external_id, parent_of, attack_uuid, unresolved)
+        if attack_id:
+            meta['mitre_attack_id'] = attack_id
 
         value = {
             'value': f"{item['name']} - {external_id}",
@@ -223,7 +244,7 @@ def build_values(objects: list[dict], tactics_by_id: dict[str, dict], parent_of:
         if item.get('description'):
             value['description'] = item['description'].strip()
         if related:
-            value['related'] = sorted(related, key=lambda rel: (rel['type'], rel['dest-uuid']))
+            value['related'] = related
 
         values.append(value)
 
